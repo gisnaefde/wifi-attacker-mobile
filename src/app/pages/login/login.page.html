@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true">
+  <div class="main d-flex justify-content-center align-items-center" style="background-color:#060818 ;">
+    <div class="login ">
+      <div class="main d-flex justify-content-center align-items-center " >
+        <form  [formGroup]="logInForm" (ngSubmit)="onLogin()">
+          <div class="input-group">
+            <span class="icon input-group-text" >
+              <fa-icon icon="envelope" ></fa-icon>
+            </span>
+            <input type="email" formControlName="email"  class="form-control" placeholder="Input Email">
+          </div>
+          <div class="input-group mt-2">
+            <span class="icon input-group-text" >
+              <fa-icon icon="key" ></fa-icon>
+            </span>
+            <input type="password" formControlName="password"  class="form-control" placeholder="Input Password">
+          </div>
+          <div class=" mt-4">
+            <button type="submit" class="btn">Sign In</button>
+          </div>
+        </form>
+        <!-- <button ion-button (click)="test()">test </button> -->
+      </div>
+    </div>
+  </div>
+</ion-content>

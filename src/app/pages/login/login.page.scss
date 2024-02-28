@@ -1,0 +1,62 @@
+.main{
+  height: 100%;
+
+}
+.login{
+  background-color: #191e3a;
+  height: 400px;
+  width: 400px;
+  border-radius: 15px;
+}
+
+form{
+  width: 80%;
+}
+
+input{
+  background-color: #181b25;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+  color: white;
+}
+
+button{
+  background-color: #919191;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+}
+button:hover{
+  background-color: #d9d9d9;
+  color: black;
+}
+
+.icon{
+  border-radius: 30px;
+  width: 12%;
+  background-color: #181b25;
+  border: none;
+  color: white;
+}
+
+.input-group input:focus {
+  background-color: #181b25;
+  color: white;
+  outline: none;
+}
+
+.input-group input:active {
+  background-color: #181b25;
+  color: white;
+}
+
+.input-group span{
+  padding-left: 20px;
+}
+
+::placeholder {
+  color: #6c757d; /* Ganti dengan warna yang diinginkan */
+}

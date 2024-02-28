@@ -1,0 +1,89 @@
+<!-- <div class="d-flex ion-justify-content-between"> -->
+<div class="row">
+  <div class="col-4 d-flex ion-justify-content-start">
+    <a class="" (click)="back()">
+      <fa-icon icon="backward" style="font-size: 24px; margin-right: 20px;" class="text-primary"></fa-icon>
+    </a>
+  </div>
+  <div class="col-4 d-flex ion-justify-content-center ion-align-items-center ">
+    <!-- <img src="/assets/images/intek.png" style="height: 50px; margin-right: 20px;"> -->
+    <h1 class="">Fake Wifi </h1>
+  </div>
+  <div class="col-4 d-flex ion-justify-content-end">
+    <div ngbDropdown class="d-inline-block">
+      <!-- <a class="logout" (click)="back()">
+        <fa-icon icon="backward" style="font-size: 24px; margin-right: 20px;" class="text-primary"
+        ngbDropdownToggle></fa-icon>
+      </a> -->
+      <a class="logout" (click)="logout()">
+        <fa-icon icon="sign-out" style="font-size: 24px; margin-right: 20px;" class="text-primary"
+          ngbDropdownToggle></fa-icon>
+      </a>
+      <!-- <fa-icon icon="user" style="font-size: 24px; margin-right: 20px;" class="text-primary"
+        ngbDropdownToggle></fa-icon>
+      <div class="dropdown-menu" style="max-width: 20px;" ngbDropdownMenu>
+        <button ngbDropdownItem [routerLink]="['/profile']">Profile</button>
+        <button ngbDropdownItem>Logout</button>
+      </div> -->
+    </div>
+    <!-- <fa-icon icon="gear" style="font-size: 24px;" class="text-primary"></fa-icon> -->
+  </div>
+</div>
+<!-- </div> -->
+<div class="" style="width: 100%;">
+  <div class="row">
+    <div *ngIf="status == 'inactive'" class="col-3 d-flex justify-content-between">
+      <button id="open-modal" expand="block" class="btn btn-primary ">Create Campaign</button>
+      <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()">Cancel</ion-button>
+              </ion-buttons>
+              <ion-title>Create Campaign</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form [formGroup]="campaignForm" (ngSubmit)="createCampaign()">
+              <ion-item>
+                <ion-input labelPlacement="stacked" type="text" placeholder="campaign name"
+                  formControlName="name"></ion-input>
+              </ion-item>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-3">Create</button>
+              </div>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      <div class="btn-group me-3" style="margin-left: 30px;">
+        <!-- <button type="button" class="btn btn-primary">List Campaign</button> -->
+        <div class="btn-group rounded-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-primary p-3 " (click)="campaignList()" ngbDropdownToggle>List
+              Campaign</button>
+            <div class="dropdown-menu" style="max-width: 20px;" ngbDropdownMenu>
+              <!-- <button ngbDropdownItem>Demo 1</button>
+              <button ngbDropdownItem>Demo 2</button> -->
+              <button *ngFor="let campaigns of campaigns" ngbDropdownItem>
+                <div class="d-flex justify-content-between">
+                  <a (click)="toCampaign(campaigns.id)">{{ campaigns.name }}</a>
+                  <i (click)="deleteCampaign(campaigns.id)"><fa-icon icon="xmark" style="font-size: 24px;"
+                      class="text-danger"></fa-icon></i>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="status == 'active'" class="col-3 d-flex justify-content-between">
+      <button (click)="stopCampaign()" class="btn btn-danger w-25 ">STOP</button>
+    </div>
+    <div class="col-9 ">
+      <h4 class="text-start">{{title}}</h4>
+    </div>
+  </div>
+</div>
+<hr>

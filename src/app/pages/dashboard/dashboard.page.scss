@@ -1,0 +1,131 @@
+#main{
+  background-color: #060818;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.sidebar{
+  background-color: #191e3a;
+}
+
+.content{
+  height: 600px;
+}
+#chart{
+  background-color: #191e3a;
+  height: 100%;
+  padding-top: 1px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#table{
+  background-color: #191e3a;
+  height: 100%;
+  padding-top: 1px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.cards{
+  background-color:#181b25 ;
+  height: 100px;
+  width: 270px;
+  margin-top: 10px;
+  padding: 20px;
+  border: 2px;
+  border-color: #31304a;
+}
+
+th{
+  background-color: #1f2937;
+  color: #009688;
+}
+td{
+  background-color: #181b25;
+  color: white;
+}
+.table{
+  border-color: white;
+}
+
+.table form{
+  height: 10px;
+}
+.odd-row {
+  background-color: #191e3a;
+}
+.even-row {
+  background-color: #1f2937;
+}
+
+input{
+  border: none;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+
+
+input{
+  background-color: #181b25;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+  color: white;
+}
+
+// button{
+//   background-color: #919191;
+//   border: none;
+//   height: 50px;
+//   width: 100%;
+//   border-radius: 30px;
+// }
+button:hover{
+  background-color: #d9d9d9;
+  color: black;
+}
+
+.icon{
+  border-radius: 30px;
+  width: 20%;
+  background-color: #181b25;
+  border: none;
+  color: white;
+}
+
+.input-group input:focus {
+  background-color: #181b25;
+  color: white;
+  outline: none;
+}
+
+.input-group input:active {
+  background-color: #181b25;
+  color: white;
+}
+
+.input-group span{
+  padding-left: 20px;
+}
+
+::placeholder {
+  color: #6c757d; /* Ganti dengan warna yang diinginkan */
+}
+
+.chart-container {
+  width: 420px;
+  height:500px
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: #0d6efd;
+  border-radius: 100%;
+}
+
+
+

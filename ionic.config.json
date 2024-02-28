@@ -1,0 +1,7 @@
+{
+  "name": "fe-attacker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
