@@ -95,8 +95,8 @@
                     <td [class.odd-row]="(p - 1) * 10 + i % 2 === 0" [class.even-row]="(p - 1) * 10 + i % 2 !== 0">
                       {{
                         data.attackmode === 'normal' ? 'Normal' :
-                        data.attackmode === 'suspect' ? 'Not Secure' :
-                        data.attackmode === 'eviltwin' ? 'Rogue Ap' :
+                        data.attackmode === 'not secure' ? 'Not Secure' :
+                        data.attackmode === 'rogue ap' ? 'Rogue Ap' :
                         'Unknown'
                       }}</td>
                     <td [class.odd-row]="(p - 1) * 10 + i % 2 === 0" [class.even-row]="(p - 1) * 10 + i % 2 !== 0">

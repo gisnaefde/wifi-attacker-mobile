@@ -1,0 +1,73 @@
+
+.profile{
+  background-color: #191e3a;
+  width: 50%;
+  height: 600px;
+}
+
+.cards{
+  background-color:#181b25 ;
+  height: 150px;
+  width: 300px;
+  margin-top: 10px;
+  padding: 20px;
+  border: 2px;
+  border-color: #31304a;
+}
+#main{
+  background-color: #060818;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+.settings{
+background-color: #191e3a;
+}
+
+
+.input-form{
+  background-color: #16326a;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+  color: white;
+}
+
+button{
+  background-color: #919191;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+}
+
+
+.form-check{
+  padding-left: 0;
+}
+
+#flexSwitchCheckChecked{
+  width: 50px;
+  height: 25px;
+}
+
+hr {
+  height: 5px;
+  width: 20%;
+  background: linear-gradient(to right, white, blue);
+  border-radius: 30px;
+}
+
+button{
+  background-color: #919191;
+  border: none;
+  height: 50px;
+  width: 100%;
+  border-radius: 30px;
+}
+button:hover{
+  background-color: #d9d9d9;
+  color: black;
+}

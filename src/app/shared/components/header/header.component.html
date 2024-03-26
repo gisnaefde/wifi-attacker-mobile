@@ -26,7 +26,9 @@
         <button ngbDropdownItem>Logout</button>
       </div> -->
     </div>
-    <!-- <fa-icon icon="gear" style="font-size: 24px;" class="text-primary"></fa-icon> -->
+    <fa-icon [routerLink]="['/settings']" expand="block" icon="gear" style="font-size: 24px;"
+      class="text-primary cursor-pointer"></fa-icon>
+
   </div>
 </div>
 <!-- </div> -->
@@ -84,6 +86,8 @@
     <div class="col-9 ">
       <h4 class="text-start">{{title}}</h4>
     </div>
+    <button class="mt-2" (click)="play()" >Play Audio</button>
+    <button class="mt-2" (click)="stop()" >Stop Audio</button>
   </div>
 </div>
 <hr>

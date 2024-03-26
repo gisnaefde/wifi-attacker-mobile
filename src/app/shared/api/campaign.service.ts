@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class CampaignService {
 
-  private apiUrl = 'http://192.168.1.204/api';
+  private apiUrl = 'http://172.15.3.99/api';
   private campaignUpdates = new Subject<any>();
 
 

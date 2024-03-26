@@ -53,7 +53,13 @@
                   <fa-icon icon="check"  style="font-size: 30px;" class="text-primary"></fa-icon>
                 </div>
                 <div>
-                  <h3>{{status}}</h3>
+                  <h3>
+                    {{
+                      status === 'normal' ? 'Normal' :
+                      status === 'not secure' ? 'Not Secure' :
+                      status === 'rogue ap' ? 'Rogue Ap' :
+                      'Unknown'
+                    }}</h3>
                 </div>
               </div>
             </div>

@@ -113,10 +113,12 @@ export class DashboardPage implements OnInit, OnChanges {
     const subscription = this.toCampaign(id).subscribe(
       (campaign: any) => {
         const ctx = (<any>document.getElementById('tp-chart')).getContext('2d');
+        const limitedDevices = campaign.devices.slice(0, 30);
+        console.log()
         this.chart = new Chart(ctx, {
           type: 'radar',
           data: {
-            labels: campaign.devices.map((device: any) => device.ssid),
+            labels: limitedDevices.map((device: any) => device.ssid),
             datasets: [{
               label: "",
 
@@ -125,17 +127,37 @@ export class DashboardPage implements OnInit, OnChanges {
               pointBorderColor: '#fff',
               pointHoverBackgroundColor: '#fff',
               pointHoverBorderColor: 'rgba(13,110,253,255)',
-              data: campaign.devices.map((device: any) => device.signal),
+              data: limitedDevices.map((device: any) => device.signal),
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              },
+            },
+
             elements: {
               line: {
                 borderWidth: 3
               }
             },
+            scales: {
+              r: {
+                angleLines: {
+                  display: false
+                },
+                grid: { // Menggunakan grid untuk konfigurasi gridLines
+                  color: 'rgb(12,44,116)'
+                },
+                pointLabels: {
+                  color: 'white' // mengatur warna teks menjadi putih
+                },
+              },
+            },
+
           },
         });
         subscription.unsubscribe();
@@ -153,10 +175,9 @@ export class DashboardPage implements OnInit, OnChanges {
         // Perbarui data chart
         this.labels = campaign.devices.map((device: any) => device.ssid);
         this.datas = campaign.devices.map((device: any) => device.signal);
-        this.chart.data.labels = this.labels;
-        this.chart.data.datasets[0].data = this.datas;
+        this.chart.data.labels = this.labels.slice(0, 30);
+        this.chart.data.datasets[0].data = this.datas.slice(0, 30);
         this.chart.update()
-        // this.chart.update(); // Perbarui chart
         this.title = campaign.campaign.name;
 
         let deauthsData = campaign.deauths;
@@ -168,10 +189,10 @@ export class DashboardPage implements OnInit, OnChanges {
         let normalData = campaign.devices.filter((device: Device) => device.attackmode === 'normal');
         this.normal = normalData.length;
 
-        let notSecureData = campaign.devices.filter((device: Device) => device.attackmode === 'suspect');
+        let notSecureData = campaign.devices.filter((device: Device) => device.attackmode === 'not secure');
         this.notSecure = notSecureData.length;
 
-        let rougeApData = campaign.devices.filter((device: Device) => device.attackmode === 'eviltwin');
+        let rougeApData = campaign.devices.filter((device: Device) => device.attackmode === 'rogue ap');
         this.rougeAp = rougeApData.length;
 
         this.dataTable = campaign.devices;

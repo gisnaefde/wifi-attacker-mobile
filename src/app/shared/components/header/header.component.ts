@@ -5,9 +5,11 @@ import { Storage } from '@ionic/storage-angular';
 import { CampaignService } from '../../api/campaign.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { NativeAudio } from '@capacitor-community/native-audio'
+
 
 
 interface Campaign {
@@ -22,29 +24,34 @@ interface Campaign {
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() title: string = "Demo 1";
+  @Input() title: string = "";
   @Input() id: any
   @ViewChild(IonModal) modal!: IonModal;
 
   name!: string;
   campaigns: Campaign[] = [];
   campaignForm: FormGroup;
-  status:string = "inactive"
+  settingInput: FormGroup;
+  status: string = "inactive"
+
 
   constructor(private storage: Storage,
     private fb: FormBuilder,
     private campaignService: CampaignService,
     private router: Router,
-    private location :Location,
-    ) {
+    private location: Location,
+  ) {
     this.campaignForm = this.fb.group({
+      name: ['', Validators.required]
+    });
+    this.settingInput = this.fb.group({
       name: ['', Validators.required]
     });
   }
 
   ngOnInit() {
     this.checkStatus(this.id)
-   }
+  }
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
@@ -101,25 +108,38 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
+  setting() {
+    this.campaignService.create(this.campaignForm.value.name).subscribe(
+      (response: any) => {
+        this.modal.dismiss();
 
-  checkStatus(campaign:Campaign){
+        alert("Create Campaign Successfully");
+        this.router.navigate([`/dashboard/${response.data.id}`]);
+      },
+      (error: any) => {
+        alert("Gagal: " + JSON.stringify(error));
+      }
+    )
+  }
+
+  checkStatus(campaign: Campaign) {
     this.campaignService.status(campaign).subscribe(
-      (response:any)=>{
+      (response: any) => {
         this.status = response.data.campaign.status
       },
-      (error:any)=>{
+      (error: any) => {
         alert("Campaign Is null")
       }
     )
   }
 
-  toCampaign(campaign:Campaign){
+  toCampaign(campaign: Campaign) {
     this.campaignService.toCampaign(campaign).subscribe(
-      (response:any)=>{
+      (response: any) => {
         this.router.navigate([`/dashboard/${campaign}`]);
         this.status = response.data.campaign.status
       },
-      (error:any)=>{
+      (error: any) => {
         alert("Campaign Is null")
       }
     )
@@ -148,12 +168,31 @@ export class HeaderComponent implements OnInit {
     )
   }
 
-  logout(){
-    const deleteToken =  localStorage.clear();
+  logout() {
+    const deleteToken = localStorage.clear();
     this.router.navigate([''])
   }
 
-  back(){
+  back() {
     this.location.back();
   }
+
+  play(){
+    this.playAudio();
+  }
+  stop(){
+    this.stopAudio();
+  }
+  async stopAudio() {
+    await NativeAudio.stop({
+      assetId: 'alarm',
+      // time: 6.0 - seek time
+    })
+  };
+  async playAudio() {
+    await NativeAudio.loop({
+      assetId: 'alarm',
+      // time: 6.0 - seek time
+    })
+  };
 }
