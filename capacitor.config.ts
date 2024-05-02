@@ -5,8 +5,13 @@ const config: CapacitorConfig = {
   appName: 'wifi analyzer',
   webDir: 'www',
   server: {
-    androidScheme: 'http'
-  }
+    androidScheme: 'http',
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true,
+    },
+  },
 };
 
 export default config;
