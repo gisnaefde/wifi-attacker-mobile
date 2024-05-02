@@ -10,27 +10,27 @@ import { Capacitor } from '@capacitor/core';
 })
 export class AppComponent {
   constructor(){
-    this.preloadAudio()
+    // this.preloadAudio()
   }
   isAudioLoaded = false;
 
-  async preloadAudio() {
-    try {
-      if (!this.isAudioLoaded) { // hanya memuat jika belum dimuat sebelumnya
-        let path = 'alarm.mp3';
-        if (Capacitor.getPlatform() === 'android') {
-          path = 'alarm.mp3';
-        }
-        await NativeAudio.preload({
-          assetId: "alarm",
-          assetPath: path,
-          audioChannelNum: 1,
-          isUrl: false
-        });
-        this.isAudioLoaded = true; // tandai bahwa audio sudah dimuat
-      }
-    } catch (e) {
-      alert(e);
-    }
-  }
+  // async preloadAudio() {
+  //   try {
+  //     if (!this.isAudioLoaded) { // hanya memuat jika belum dimuat sebelumnya
+  //       let path = 'alarm.mp3';
+  //       if (Capacitor.getPlatform() === 'android') {
+  //         path = 'sounds/alarm.mp3';
+  //       }
+  //       await NativeAudio.preload({
+  //         assetId: "alarm",
+  //         assetPath: path,
+  //         audioChannelNum: 1,
+  //         isUrl: false
+  //       });
+  //       this.isAudioLoaded = true; // tandai bahwa audio sudah dimuat
+  //     }
+  //   } catch (e) {
+  //     alert(e);
+  //   }
+  // }
 }

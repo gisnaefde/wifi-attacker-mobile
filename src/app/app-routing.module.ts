@@ -36,6 +36,11 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   },
+  {
+    path: 'web-socket',
+    loadChildren: () => import('./pages/web-socket/web-socket.module').then( m => m.WebSocketPageModule)
+  },
+
 ];
 
 @NgModule({

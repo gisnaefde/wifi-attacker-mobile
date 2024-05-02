@@ -33,7 +33,9 @@ export class HeaderComponent implements OnInit {
   campaignForm: FormGroup;
   settingInput: FormGroup;
   status: string = "inactive"
-
+  // isModalOpen = false;
+  // ssid:string = "Barbapapa";
+  // campaign:string = "Demo 1"
 
   constructor(private storage: Storage,
     private fb: FormBuilder,
@@ -75,7 +77,7 @@ export class HeaderComponent implements OnInit {
         this.campaigns = campaigns;
       },
       (error) => {
-        alert("Failed to fetch campaign data");
+        alert("Failed to fetch campaign data "+ error);
       }
     );
   }
@@ -108,6 +110,7 @@ export class HeaderComponent implements OnInit {
       }
     )
   }
+
   setting() {
     this.campaignService.create(this.campaignForm.value.name).subscribe(
       (response: any) => {
@@ -177,22 +180,25 @@ export class HeaderComponent implements OnInit {
     this.location.back();
   }
 
-  play(){
-    this.playAudio();
-  }
-  stop(){
-    this.stopAudio();
-  }
-  async stopAudio() {
-    await NativeAudio.stop({
-      assetId: 'alarm',
-      // time: 6.0 - seek time
-    })
-  };
-  async playAudio() {
-    await NativeAudio.loop({
-      assetId: 'alarm',
-      // time: 6.0 - seek time
-    })
-  };
+  // async stopAudio() {
+  //   await NativeAudio.stop({
+  //     assetId: 'alarm',
+  //     // time: 6.0 - seek time
+  //   })
+  // };
+  // async playAudio() {
+  //   await NativeAudio.loop({
+  //     assetId: 'alarm',
+  //     // time: 6.0 - seek time
+  //   })
+  // };
+
+  // setOpen(isOpen: boolean) {
+  //   this.isModalOpen = isOpen;
+  // }
+
+  // alert (){
+  //   this.playAudio();
+  //   this.setOpen(true);
+  // }
 }

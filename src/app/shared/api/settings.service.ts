@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class SettingService {
 
-  private apiUrl = 'http://172.15.3.99/api';
+  private apiUrl = 'http://192.168.1.2/api';
   private campaignUpdates = new Subject<any>();
 
 
@@ -23,12 +23,12 @@ export class SettingService {
   constructor(private http: HttpClient) { }
 
   setting() {
-    return this.http.get(`${this.apiUrl}/settings`, this.httpOptions)
+    return this.http.get(`${this.apiUrl}/settings`)
   }
 
   update(attack_automation :any, token_tele:any, id_chat_tele:any) {
     const body = { attack_automation, token_tele, id_chat_tele};
-    return this.http.post(`${this.apiUrl}/update/tele`, body, this.httpOptions)
+    return this.http.post(`${this.apiUrl}/update/tele`, body)
   }
 
 

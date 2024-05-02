@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://172.15.3.99/api';
   // private apiUrl = 'https://gerry.intek.co.id/api';
+  private apiUrl = 'http://192.168.1.2/api';
 
   constructor(private http: HttpClient) { }
 

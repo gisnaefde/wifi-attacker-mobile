@@ -9,60 +9,66 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class CampaignService {
 
-  private apiUrl = 'http://172.15.3.99/api';
+  private apiUrl = 'http://192.168.1.2/api';
   private campaignUpdates = new Subject<any>();
 
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
-    })
-  };
+  // private httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer ' + localStorage.getItem('token'),
+  //   })
+  // };
 
   constructor(private http: HttpClient) { }
 
+  // list() {
+  //   return this.http.get(`${this.apiUrl}/campaign-list`, this.httpOptions)
+  // }
   list() {
-    return this.http.get(`${this.apiUrl}/campaign-list`, this.httpOptions)
+    return this.http.get(`${this.apiUrl}/campaign-list`)
   }
 
   create(name: any) {
     const body = { name };
-    return this.http.post(`${this.apiUrl}/campaign`, body, this.httpOptions)
+    return this.http.post(`${this.apiUrl}/campaign`, body)
   }
 
   toCampaign(id:any){
-    const body = {id};
-    return this.http.get(`${this.apiUrl}/campaign/data/${id}`, this.httpOptions)
+    return this.http.get(`${this.apiUrl}/campaign/data/${id}`)
   }
 
   delete(id: any) {
-    const body = { id };
-    return this.http.delete(`${this.apiUrl}/campaign-delete/${id}`, this.httpOptions)
+
+    return this.http.delete(`${this.apiUrl}/campaign-delete/${id}`)
   }
 
   inspect(id:any){
-    const body= {id};
-    return this.http.get(`${this.apiUrl}/wifi/inspect/${id}`,  this.httpOptions)
+    return this.http.get(`${this.apiUrl}/wifi/inspect/${id}`)
   }
 
   attack(id:any){
-    const body= {id};
-    return this.http.get(`${this.apiUrl}/wifi/attack/${id}`,  this.httpOptions)
+    return this.http.get(`${this.apiUrl}/wifi/attack/${id}`)
   }
   stopAttack(id:any){
-    const body= {id};
-    return this.http.get(`${this.apiUrl}/wifi/stop/${id}`,  this.httpOptions)
+    return this.http.get(`${this.apiUrl}/wifi/stop/${id}`)
   }
 
+  rogueAp(){
+    return this.http.get(`${this.apiUrl}/rogueap`)
+  }
+
+  setalert(id:any){
+    return this.http.get(`${this.apiUrl}/set-alert/${id}`)
+  }
 
   //for check ststus campaign is active or inactive
   status(id:any){
     const body = {id};
-    return this.http.get(`${this.apiUrl}/campaign/data/${id}`, this.httpOptions)
+    return this.http.get(`${this.apiUrl}/campaign/data/${id}`)
   }
 
   stop(){
-    return this.http.get(`${this.apiUrl}/campaign-stop`,  this.httpOptions)
+    return this.http.get(`${this.apiUrl}/campaign-stop`)
   }
 }

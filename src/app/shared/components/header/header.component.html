@@ -7,7 +7,7 @@
   </div>
   <div class="col-4 d-flex ion-justify-content-center ion-align-items-center ">
     <!-- <img src="/assets/images/intek.png" style="height: 50px; margin-right: 20px;"> -->
-    <h1 class="">Fake Wifi </h1>
+    <h1 class="">Wifi Analyzer </h1>
   </div>
   <div class="col-4 d-flex ion-justify-content-end">
     <div ngbDropdown class="d-inline-block">
@@ -26,8 +26,8 @@
         <button ngbDropdownItem>Logout</button>
       </div> -->
     </div>
-    <fa-icon [routerLink]="['/settings']" expand="block" icon="gear" style="font-size: 24px;"
-      class="text-primary cursor-pointer"></fa-icon>
+    <!-- <fa-icon [routerLink]="['/settings']" expand="block" icon="gear" style="font-size: 24px;"
+      class="text-primary cursor-pointer"></fa-icon> -->
 
   </div>
 </div>
@@ -68,10 +68,10 @@
             <div class="dropdown-menu" style="max-width: 20px;" ngbDropdownMenu>
               <!-- <button ngbDropdownItem>Demo 1</button>
               <button ngbDropdownItem>Demo 2</button> -->
-              <button *ngFor="let campaigns of campaigns" ngbDropdownItem>
+              <button *ngFor="let campaign of campaigns" ngbDropdownItem>
                 <div class="d-flex justify-content-between">
-                  <a (click)="toCampaign(campaigns.id)">{{ campaigns.name }}</a>
-                  <i (click)="deleteCampaign(campaigns.id)"><fa-icon icon="xmark" style="font-size: 24px;"
+                  <a (click)="toCampaign(campaign.id)">{{ campaign.name }}</a>
+                  <i (click)="deleteCampaign(campaign.id)"><fa-icon icon="xmark" style="font-size: 24px;"
                       class="text-danger"></fa-icon></i>
                 </div>
               </button>
@@ -86,8 +86,29 @@
     <div class="col-9 ">
       <h4 class="text-start">{{title}}</h4>
     </div>
-    <button class="mt-2" (click)="play()" >Play Audio</button>
-    <button class="mt-2" (click)="stop()" >Stop Audio</button>
+    <!-- <button class="mt-2" (click)="alert()" >Alert</button>
+    <button class="mt-2" (click)="stopAudio()" >Stop Audio</button>
+    <ion-content class="ion-padding">
+      <ion-modal [isOpen]="isModalOpen">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Fake Wifi Detected</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="setOpen(false)">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <div class="d-flex justify-content-center">
+              <fa-icon icon="exclamation-triangle" style="font-size: 50px;" class="text-warning "></fa-icon>
+            </div>
+            <p class="text-center">SSID <span class="fw-bold">{{ssid}}</span></p>
+            <p class="text-center">in <span class="fw-bold">{{campaign}}</span></p>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-content> -->
   </div>
 </div>
 <hr>

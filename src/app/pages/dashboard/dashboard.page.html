@@ -46,7 +46,7 @@
                   <p class="text-center" style="font-size: 18px;margin-bottom:0px">{{rougeAp}}</p>
                 </div>
               </div>
-              <div class="cards d-flex ion-align-items-center ion-justify-content-between rounded-4">
+              <!-- <div class="cards d-flex ion-align-items-center ion-justify-content-between rounded-4">
                 <div class=" col-6 p-2 bg-primary rounded-3 d-flex ion-justify-content-center ion-align-items-center"
                   style="height: 40px;width: 40px;">
                   <fa-icon icon="crosshairs" style="font-size: 24px;"></fa-icon>
@@ -55,7 +55,7 @@
                   <p class="text-center " style="font-size: 18px;margin-bottom:0px">Deauths</p>
                   <p class="text-center" style="font-size: 18px;margin-bottom:0px">{{deauths}}</p>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -113,6 +113,27 @@
           </div>
         </div>
       </div>
+      <ion-content class="ion-padding">
+        <ion-modal [isOpen]="isModalOpen">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Suspect Wifi Detected</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen(false)">Close</ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <div class="d-flex justify-content-center">
+                <fa-icon icon="exclamation-triangle" style="font-size: 50px;" class="text-warning "></fa-icon>
+              </div>
+              <p class="text-center">SSID <span class="fw-bold">{{ssid}}</span></p>
+              <!-- <p class="text-center">in <span class="fw-bold">{{campaign}}</span></p> -->
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-content>
     </div>
   </div>
 

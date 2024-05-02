@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
         this.router.navigate([`/dashboard/${this.id}`]);
       },
       (error) => {
-        alert('Login failed. Please Input the correct Email and Password');
+        alert('server cannot be reached'+ error.message);
       }
     );
   }
@@ -75,7 +75,7 @@ export class LoginPage implements OnInit {
         this.id = lastCampaign
       },
       (error) => {
-        alert("Failed to fetch campaign data");
+        alert("server cannot be reached");
       }
     );
   }

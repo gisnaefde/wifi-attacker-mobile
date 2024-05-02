@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SettingService } from 'src/app/shared/api/settings.service';
 
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -36,7 +37,7 @@ export class SettingsPage implements OnInit {
   }
 
   submitForm() {
-    console.log(this.settingForm.value);
+    // console.log(this.settingForm.value);
     const formValue = this.settingForm.value;
 
     // Membuat variabel untuk menyimpan nilai-nilai sebelumnya
@@ -54,7 +55,7 @@ export class SettingsPage implements OnInit {
         this.attack_automation = response.data.attack_automation;
         this.token_tele = response.data.token_tele;
         this.id_chat_tele = response.data.id_chat_tele;
-        console.log(formValue.attack_automation,response.data.attack_automation)
+        console.log("success",formValue.attack_automation,response.data.attack_automation)
         // Patching nilai-nilai form jika terjadi perubahan
         if (formValue.attack_automation !== this.attack_automation) {
           this.settingForm.patchValue({

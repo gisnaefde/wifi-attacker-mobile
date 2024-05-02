@@ -2,16 +2,11 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.example.app',
-  appName: 'Fake Wifi',
+  appName: 'wifi analyzer',
   webDir: 'www',
   server: {
-    androidScheme: 'http',
-    cleartext: true
-  },
-
-  android: {
-    allowMixedContent: true
-  },
+    androidScheme: 'http'
+  }
 };
 
 export default config;
