@@ -101,9 +101,9 @@ export class HeaderComponent implements OnInit {
   createCampaign() {
     this.campaignService.create(this.campaignForm.value.name).subscribe(
       (response: any) => {
-        this.modal.dismiss();
-        alert("Create Campaign Successfully");
-        this.router.navigate([`/dashboard/${response.data.id}`]);
+        // this.modal.dismiss();
+        // alert("Create Campaign Successfully");
+        // this.router.navigate([`/dashboard/${response.data.id}`]);
       },
       (error: any) => {
         // alert("Gagal: " + JSON.stringify(error));
@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit {
           const latestCampaignId = lastCampaign.id;
           // alert("Latest campaign ID:"+ latestCampaignId);
           this.router.navigate([`/dashboard/${latestCampaignId}`]);
-          alert("Create Campaign Successfully"+latestCampaignId);
+          alert("Create Campaign Successfully");
         },
         (error) => {
           alert("Failed to fetch campaign data " + error);
