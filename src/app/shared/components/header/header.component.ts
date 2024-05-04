@@ -6,8 +6,8 @@ import { CampaignService } from '../../api/campaign.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, of, throwError, switchMap } from 'rxjs';
+import { map, catchError, finalize, tap } from 'rxjs/operators';
 import { NativeAudio } from '@capacitor-community/native-audio'
 
 
@@ -77,7 +77,7 @@ export class HeaderComponent implements OnInit {
         this.campaigns = campaigns;
       },
       (error) => {
-        alert("Failed to fetch campaign data "+ error);
+        alert("Failed to fetch campaign data " + error);
       }
     );
   }
@@ -85,31 +85,48 @@ export class HeaderComponent implements OnInit {
   lastCampaign(): Observable<any> {
     return this.campaignService.list().pipe(
       map((response: any) => {
-        const lastCampaign = response.campaign.slice(-1)[0];
+        // const lastCampaign = response.campaign.slice(-1)[0];
+        const lastCampaign = response
         return lastCampaign;
       }),
       catchError((error: any) => {
         console.error('Failed to fetch campaign:', error);
         // Kembalikan pesan kesalahan dalam bentuk Observable
-        return of(null);
+        return throwError(new Error('Failed to fetch campaign: ' + error.message));
       })
     );
   }
 
+  //ini kode yang salah karena butuh cepat jadi seperti ini
   createCampaign() {
-
     this.campaignService.create(this.campaignForm.value.name).subscribe(
       (response: any) => {
         this.modal.dismiss();
-
         alert("Create Campaign Successfully");
         this.router.navigate([`/dashboard/${response.data.id}`]);
       },
       (error: any) => {
-        alert("Gagal: " + JSON.stringify(error));
+        // alert("Gagal: " + JSON.stringify(error));
       }
     )
+    setTimeout(() => {
+      this.campaignService.list().subscribe(
+        (response: any) => {
+          const lastCampaign = response.campaign.slice(-1)[0];
+          const latestCampaignId = lastCampaign.id;
+          // alert("Latest campaign ID:"+ latestCampaignId);
+          this.router.navigate([`/dashboard/${latestCampaignId}`]);
+          alert("Create Campaign Successfully"+latestCampaignId);
+        },
+        (error) => {
+          alert("Failed to fetch campaign data " + error);
+        }
+      );
+    }, 3000);
+
   }
+
+
 
   setting() {
     this.campaignService.create(this.campaignForm.value.name).subscribe(
