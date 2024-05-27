@@ -3,12 +3,12 @@ import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Storage } from '@ionic/storage-angular';
 import { CampaignService } from '../../api/campaign.service';
+import { ExportService } from '../../api/export.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable, of, throwError, switchMap } from 'rxjs';
 import { map, catchError, finalize, tap } from 'rxjs/operators';
-import { NativeAudio } from '@capacitor-community/native-audio'
 
 
 
@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
     private campaignService: CampaignService,
     private router: Router,
     private location: Location,
+    private exportService: ExportService
   ) {
     this.campaignForm = this.fb.group({
       name: ['', Validators.required]
@@ -195,6 +196,40 @@ export class HeaderComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  downloadFile(blob: Blob, fileName: string) {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
+
+  downloadPdf() {
+    this.exportService.pdf(this.id).subscribe(
+      (response: Blob) => {
+       this.downloadFile(response, `wifi-analyzer.pdf`);
+      },
+      (error: any) => {
+        alert("Download failed")
+      }
+    )
+  }
+  downloadXlsx() {
+    this.exportService.xlsx(this.id).subscribe(
+      (response: Blob) => {
+        this.downloadFile(response, `wifi-analyzer.xlsx`);
+      },
+      (error: any) => {
+        alert("Download failed")
+      }
+    )
   }
 
   // async stopAudio() {

@@ -9,7 +9,6 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AutoReloadService } from 'src/app/shared/api/auto-reload.service';
 import { Subscription } from 'rxjs';
-import { NativeAudio } from '@capacitor-community/native-audio'
 import { SocketService } from 'src/app/shared/api/socket.service';
 
 
@@ -70,7 +69,7 @@ export class DashboardPage implements OnInit, OnChanges {
     public route: ActivatedRoute,
     private router: Router,
     private campaignService: CampaignService,
-    private socketService: SocketService
+    private socketService: SocketService,
   ) {
   }
 
@@ -143,8 +142,8 @@ export class DashboardPage implements OnInit, OnChanges {
           this.showChart();
 
           //check rogue ap
-          this.data.devices.forEach((device: { attackmode: any, ssid:any, id:any , alert_status:any }) => {
-            if (device.attackmode === 'rogue ap'&& device.alert_status === 0) {
+          this.data.devices.forEach((device: { attackmode: any, ssid: any, id: any, alert_status: any }) => {
+            if (device.attackmode === 'rogue ap' && device.alert_status === 0) {
               this.ssid = device.ssid
               // this.campaign = device.campaign.name
               this.alert(); // Panggil function alert jika terdeteksi 'rogue ap'
@@ -295,54 +294,20 @@ export class DashboardPage implements OnInit, OnChanges {
       }
     );
   }
-  //   const rogueAp = this.campaignService.rogueAp().subscribe(
-  //     (data: any) => {
-  //       if (Object.keys(data.rogueap).length > 1 && data.rogueap.alert_status == false) {
-  //         this.ssid = data.rogueap.ssid
-  //         this.campaign = data.campaign.name
-  //         this.alert();
-  //         id = data.rogueap.id
 
-  //         const setalert = this.campaignService.setalert(id).subscribe();
-  //       } else {
-  //         // console.log(data);
-  //       }
-  //     },
-  //     (error: any) => {
-  //       console.error("Error: " + error.message);
-  //     }
-  //   );
-  // }
 
-  // toCampaign(campaign: Campaign): Observable<string> {
-  //   return this.campaignService.toCampaign(campaign).pipe(
-  //     map((response: any) => {
-  //       if (response && response.data) {
-  //         return response.data;
-  //       } else {
-  //         throw new Error('Campaign not found');
-  //       }
-  //     }),
-
-  //     catchError((error: any) => {
-  //       console.error('Failed to fetch campaign:', error);
-  //       return ('Campaign not found');
-  //     })
-  //   );
-  // }
-
-  async stopAudio() {
-    await NativeAudio.stop({
-      assetId: 'alarm',
-      // time: 6.0 - seek time
-    })
-  };
-  async playAudio() {
-    await NativeAudio.loop({
-      assetId: 'alarm',
-      // time: 6.0 - seek time
-    })
-  };
+  // async stopAudio() {
+  //   await NativeAudio.stop({
+  //     assetId: 'alarm',
+  //     // time: 6.0 - seek time
+  //   })
+  // };
+  // async playAudio() {
+  //   await NativeAudio.play({
+  //     assetId: 'alarm',
+  //     // time: 6.0 - seek time
+  //   })
+  // };
 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;

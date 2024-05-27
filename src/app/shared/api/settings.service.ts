@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class SettingService {
 
-  private apiUrl = 'http://192.168.1.2/api';
+  private apiUrl = environment.apiUrl;
   private campaignUpdates = new Subject<any>();
 
 

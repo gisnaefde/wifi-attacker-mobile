@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NativeAudio } from '@capacitor-community/native-audio'
+// import { NativeAudio } from '@capacitor-community/native-audio'
 import { Capacitor } from '@capacitor/core';
 
 
@@ -12,14 +12,14 @@ export class AppComponent {
   constructor(){
     // this.preloadAudio()
   }
-  isAudioLoaded = false;
+  // isAudioLoaded = false;
 
   // async preloadAudio() {
   //   try {
-  //     if (!this.isAudioLoaded) { // hanya memuat jika belum dimuat sebelumnya
-  //       let path = 'alarm.mp3';
+  //     // if (!this.isAudioLoaded) { // hanya memuat jika belum dimuat sebelumnya
+  //       let path = 'assets/sounds/alarm.mp3';
   //       if (Capacitor.getPlatform() === 'android') {
-  //         path = 'sounds/alarm.mp3';
+  //         path = 'assets/sounds/alarm.mp3';
   //       }
   //       await NativeAudio.preload({
   //         assetId: "alarm",
@@ -27,8 +27,8 @@ export class AppComponent {
   //         audioChannelNum: 1,
   //         isUrl: false
   //       });
-  //       this.isAudioLoaded = true; // tandai bahwa audio sudah dimuat
-  //     }
+  //       // this.isAudioLoaded = true; // tandai bahwa audio sudah dimuat
+  //     // }
   //   } catch (e) {
   //     alert(e);
   //   }
