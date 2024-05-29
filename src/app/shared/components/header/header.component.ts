@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable, of, throwError, switchMap } from 'rxjs';
 import { map, catchError, finalize, tap } from 'rxjs/operators';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { environment } from 'src/environments/environment.prod';
+import { HttpClient } from '@angular/common/http';
 
 
 interface Campaign {
@@ -36,13 +38,16 @@ export class HeaderComponent implements OnInit {
   // isModalOpen = false;
   // ssid:string = "Barbapapa";
   // campaign:string = "Demo 1"
+  private apiUrl = environment.apiUrl;
 
   constructor(private storage: Storage,
     private fb: FormBuilder,
     private campaignService: CampaignService,
     private router: Router,
     private location: Location,
-    private exportService: ExportService
+    private exportService: ExportService,
+    private inAppBrowser: InAppBrowser,
+    private http: HttpClient
   ) {
     this.campaignForm = this.fb.group({
       name: ['', Validators.required]
@@ -230,6 +235,21 @@ export class HeaderComponent implements OnInit {
         alert("Download failed")
       }
     )
+  }
+
+  openPDF() {
+    const url = `${this.apiUrl}/export-pdf/${this.id}`;
+    const target = '_system';
+    const options = 'location=yes';
+
+    const browser = this.inAppBrowser.create(url, target, options);
+  }
+  openXLXS() {
+    const url = `${this.apiUrl}/export-xlsx/${this.id}`;
+    const target = '_system';
+    const options = 'location=yes';
+
+    const browser = this.inAppBrowser.create(url, target, options);
   }
 
   // async stopAudio() {

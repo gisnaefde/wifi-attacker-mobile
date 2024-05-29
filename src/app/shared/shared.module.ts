@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule
   ],
+  providers: [InAppBrowser],
   exports:[
     HeaderComponent
   ]

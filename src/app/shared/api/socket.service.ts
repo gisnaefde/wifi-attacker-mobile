@@ -20,7 +20,7 @@ export class SocketService {
   campaignData() {
     this.echo = new Echo({
       broadcaster: 'socket.io',
-      host: 'http://192.168.1.2:6001',
+      host: 'http://172.15.2.164:6001',
     });
 
     this.echo.connector.socket.on('connect', function () {
