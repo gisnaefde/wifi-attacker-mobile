@@ -12,6 +12,10 @@ import { map, catchError, finalize, tap } from 'rxjs/operators';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Injectable } from '@angular/core';
+import write_blob from "capacitor-blob-writer";
+
 
 
 interface Campaign {
@@ -23,6 +27,9 @@ interface Campaign {
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class HeaderComponent implements OnInit {
 
@@ -203,53 +210,47 @@ export class HeaderComponent implements OnInit {
     this.location.back();
   }
 
-  downloadFile(blob: Blob, fileName: string) {
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }, 0);
+  async downloadPdf() {
+    // Firstly, obtain a Blob.
+    const pdfResponse = await fetch(`${this.apiUrl}/export-pdf/${this.id}`);
+    const pdfBlob = await pdfResponse.blob();
+    const randomNumbers = Math.floor(Math.random() * 100);
+    const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).pdf`;
+    const filePath = `Download/${fileName}`; 
+    
+    write_blob({
+            path: filePath,
+            directory: Directory.ExternalStorage,
+            blob: pdfBlob,
+            fast_mode: true,
+            recursive: true,
+            on_fallback(error) {
+                console.error(error);
+            }
+        }).then(function () {
+          alert("Export file successfully");
+        });
   }
 
-  downloadPdf() {
-    this.exportService.pdf(this.id).subscribe(
-      (response: Blob) => {
-       this.downloadFile(response, `wifi-analyzer.pdf`);
-      },
-      (error: any) => {
-        alert("Download failed")
-      }
-    )
-  }
-  downloadXlsx() {
-    this.exportService.xlsx(this.id).subscribe(
-      (response: Blob) => {
-        this.downloadFile(response, `wifi-analyzer.xlsx`);
-      },
-      (error: any) => {
-        alert("Download failed")
-      }
-    )
-  }
-
-  openPDF() {
-    const url = `${this.apiUrl}/export-pdf/${this.id}`;
-    const target = '_system';
-    const options = 'location=yes';
-
-    const browser = this.inAppBrowser.create(url, target, options);
-  }
-  openXLXS() {
-    const url = `${this.apiUrl}/export-xlsx/${this.id}`;
-    const target = '_system';
-    const options = 'location=yes';
-
-    const browser = this.inAppBrowser.create(url, target, options);
+  async downloadXlsx() {
+    const pdfResponse = await fetch(`${this.apiUrl}/export-xlsx/${this.id}`);
+    const pdfBlob = await pdfResponse.blob();
+    const randomNumbers = Math.floor(Math.random() * 100);
+    const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).xlsx`;
+    const filePath = `Download/${fileName}`; 
+    
+    write_blob({
+            path: filePath,
+            directory: Directory.ExternalStorage,
+            blob: pdfBlob,
+            fast_mode: true,
+            recursive: true,
+            on_fallback(error) {
+                console.error(error);
+            }
+        }).then(function () {
+            alert("Export file successfully");
+        });
   }
 
   // async stopAudio() {
