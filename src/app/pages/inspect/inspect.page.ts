@@ -7,6 +7,7 @@ import { Chart } from 'chart.js/auto';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ActivatedRoute } from '@angular/router';
+import { ShowHideContentService } from 'src/app/shared/api/show-hide-content.service';
 
 
 
@@ -32,7 +33,14 @@ export class InspectPage implements OnInit {
   title:any
   attackStatus :string = "inactive"
 
-  constructor(private campaignService: CampaignService, private route: ActivatedRoute) { }
+  constructor(
+    private campaignService: CampaignService, 
+    private route: ActivatedRoute,
+    private showHideContentService: ShowHideContentService
+  ) { 
+    this.showHideContentService.setShowExportButton(false);
+    this.showHideContentService.setShowBackButton(true);
+  }
 
   ngOnInit() {
     const refreshed = localStorage.getItem('refreshed');

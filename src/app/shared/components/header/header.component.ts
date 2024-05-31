@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { Injectable } from '@angular/core';
 import write_blob from "capacitor-blob-writer";
+import { ShowHideContentService } from '../../api/show-hide-content.service';
 
 
 
@@ -42,10 +43,9 @@ export class HeaderComponent implements OnInit {
   campaignForm: FormGroup;
   settingInput: FormGroup;
   status: string = "inactive"
-  // isModalOpen = false;
-  // ssid:string = "Barbapapa";
-  // campaign:string = "Demo 1"
   private apiUrl = environment.apiUrl;
+  showExportButton = true;
+  showBackButton = true;
 
   constructor(private storage: Storage,
     private fb: FormBuilder,
@@ -54,7 +54,8 @@ export class HeaderComponent implements OnInit {
     private location: Location,
     private exportService: ExportService,
     private inAppBrowser: InAppBrowser,
-    private http: HttpClient
+    private http: HttpClient,
+    private showhidecontenService: ShowHideContentService
   ) {
     this.campaignForm = this.fb.group({
       name: ['', Validators.required]
@@ -66,6 +67,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.checkStatus(this.id)
+    this.showhidecontenService.showExportButton$.subscribe(show => {
+      this.showExportButton = show;
+    });
+    this.showhidecontenService.showBackButton$.subscribe(show => {
+      this.showBackButton = show;
+    });
   }
 
   cancel() {
@@ -211,46 +218,56 @@ export class HeaderComponent implements OnInit {
   }
 
   async downloadPdf() {
-    // Firstly, obtain a Blob.
-    const pdfResponse = await fetch(`${this.apiUrl}/export-pdf/${this.id}`);
-    const pdfBlob = await pdfResponse.blob();
-    const randomNumbers = Math.floor(Math.random() * 100);
-    const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).pdf`;
-    const filePath = `Download/${fileName}`; 
-    
-    write_blob({
-            path: filePath,
-            directory: Directory.ExternalStorage,
-            blob: pdfBlob,
-            fast_mode: true,
-            recursive: true,
-            on_fallback(error) {
-                console.error(error);
-            }
-        }).then(function () {
-          alert("Export file successfully");
-        });
+    try {
+      // Firstly, obtain a Blob.
+      const pdfResponse = await fetch(`${this.apiUrl}/export-pdf/${this.id}`);
+      const pdfBlob = await pdfResponse.blob();
+      const randomNumbers = Math.floor(Math.random() * 100);
+      const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).pdf`;
+      const filePath = `Download/${fileName}`;
+
+      write_blob({
+        path: filePath,
+        directory: Directory.ExternalStorage,
+        blob: pdfBlob,
+        fast_mode: true,
+        recursive: true,
+        on_fallback(error) {
+          console.error(error);
+        }
+      }).then(function () {
+        alert("Export file successfully");
+      });
+    } catch (error) {
+      alert("Export File Failed")
+    }
+
   }
 
   async downloadXlsx() {
-    const pdfResponse = await fetch(`${this.apiUrl}/export-xlsx/${this.id}`);
-    const pdfBlob = await pdfResponse.blob();
-    const randomNumbers = Math.floor(Math.random() * 100);
-    const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).xlsx`;
-    const filePath = `Download/${fileName}`; 
-    
-    write_blob({
-            path: filePath,
-            directory: Directory.ExternalStorage,
-            blob: pdfBlob,
-            fast_mode: true,
-            recursive: true,
-            on_fallback(error) {
-                console.error(error);
-            }
-        }).then(function () {
-            alert("Export file successfully");
-        });
+    try {
+      const pdfResponse = await fetch(`${this.apiUrl}/export-xlsx/${this.id}`);
+      const pdfBlob = await pdfResponse.blob();
+      const randomNumbers = Math.floor(Math.random() * 100);
+      const fileName = `wifi-analyzer-${this.title}-(${randomNumbers}).xlsx`;
+      const filePath = `Download/${fileName}`;
+
+      write_blob({
+        path: filePath,
+        directory: Directory.ExternalStorage,
+        blob: pdfBlob,
+        fast_mode: true,
+        recursive: true,
+        on_fallback(error) {
+          console.error(error);
+        }
+      }).then(function () {
+        alert("Export file successfully");
+      });
+    } catch (error) {
+      alert("Export File Failed")
+    }
+
   }
 
   // async stopAudio() {

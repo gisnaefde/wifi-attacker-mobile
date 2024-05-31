@@ -10,7 +10,7 @@ import { map, catchError } from 'rxjs/operators';
 import { AutoReloadService } from 'src/app/shared/api/auto-reload.service';
 import { Subscription } from 'rxjs';
 import { SocketService } from 'src/app/shared/api/socket.service';
-
+import { ShowHideContentService } from 'src/app/shared/api/show-hide-content.service';
 
 
 interface Campaign {
@@ -70,7 +70,10 @@ export class DashboardPage implements OnInit, OnChanges {
     private router: Router,
     private campaignService: CampaignService,
     private socketService: SocketService,
+    private showHideContentService: ShowHideContentService
   ) {
+    this.showHideContentService.setShowExportButton(true);
+    this.showHideContentService.setShowBackButton(false);
   }
 
   ngOnChanges(changes: SimpleChanges) {

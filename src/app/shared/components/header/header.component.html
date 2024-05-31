@@ -1,9 +1,11 @@
 <!-- <div class="d-flex ion-justify-content-between"> -->
 <div class="row">
-  <div class="col-4 d-flex ion-justify-content-start">
+  <div *ngIf="showBackButton" class="col-4 d-flex ion-justify-content-start">
     <a class="" (click)="back()">
       <fa-icon icon="backward" style="font-size: 24px; margin-right: 20px;" class="text-primary"></fa-icon>
     </a>
+  </div>
+  <div *ngIf="showExportButton"  class="col-4 d-flex ion-justify-content-start">
   </div>
   <div class="col-4 d-flex ion-justify-content-center ion-align-items-center ">
     <h1 class="">Wifi Analyzer </h1>
@@ -81,7 +83,7 @@
       <h4 class="text-start">{{title}}</h4>
 
 
-      <div class="btn-group me-3" style="margin-left: 30px;">
+      <div slot="end" *ngIf="showExportButton" class="btn-group me-3" style="margin-left: 30px;">
         <div class="btn-group rounded-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
           <div ngbDropdown class="d-inline-block">
             <div type="button" class=" d-flex align-items-center justify-content-center rounded-3" ngbDropdownToggle style="height: 40px; width: 100px;background-color: #009688;">
